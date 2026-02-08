@@ -1,1 +1,38 @@
-<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Windows 11 Simulator</title>\n    <style>\n        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f3f4f6; }\n        #desktop { position: relative; width: 100%; height: 100vh; background-color: #0078d4; }\n        .window { position: absolute; width: 300px; height: 200px; background: white; border: 1px solid #ccc; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); }\n        .title-bar { background: #0078d4; color: white; padding: 5px; cursor: move; }\n    </style>\n</head>\n<body>\n    <div id=\"desktop\">\n        <div class=\"window\" id=\"window1\">\n            <div class=\"title-bar\">Window 1</div>\n            <div class=\"content\">This is a sample window.</div>\n        </div>\n    </div>\n    <script>\n        let windows = document.getElementsByClassName('window');\n        for (let i = 0; i < windows.length; i++) {\n            windows[i].onmousedown = function (ev) {\n                let pos1 = ev.clientX;\n                let pos2 = ev.clientY;\n                let element = this;\n                document.onmouseup = function () { document.onmouseup = null; document.onmousemove = null; };\n                document.onmousemove = function (ev) {\n                    element.style.left = (element.offsetLeft + ev.clientX - pos1) + 'px';\n                    element.style.top = (element.offsetTop + ev.clientY - pos2) + 'px';\n                    pos1 = ev.clientX;\n                    pos2 = ev.clientY;\n                };\n            };\n        }\n    </script>\n</body>\n</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Windows 11 Simulator</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f0f0f0; margin: 0; padding: 0; }
+        #taskbar { background: #3b3b3b; height: 40px; display: flex; align-items: center; padding: 0 10px; }
+        .window { border: 1px solid #ccc; background: white; position: absolute; }
+        .file-explorer { display: flex; flex-direction: column; width: 300px; border-right: 1px solid #ccc; }
+        .file { padding: 5px; cursor: pointer; }
+        .file:hover { background: #e0e0e0; }
+        #notification-area { position: absolute; bottom: 0; width: 100%; height: 200px; background: white; display: none; }
+    </style>
+</head>
+<body>
+    <div id="taskbar">Windows 11 Simulator</div>
+    <div class="file-explorer" id="file-explorer">
+        <div class="file" draggable="true">File 1</div>
+        <div class="file" draggable="true">File 2</div>
+    </div>
+    <div id="notification-area"></div>
+    <script>
+        // File management functions: create, rename, delete
+        function createFile(name) { /* Implementation */ }
+        function renameFile(oldName, newName) { /* Implementation */ }
+        function deleteFile(name) { /* Implementation */ }
+
+        // Drag and drop functionality
+        document.querySelectorAll('.file').forEach(file => {
+            file.addEventListener('dragstart', event => { event.dataTransfer.setData('text/plain', file.textContent); });
+        });
+
+        // More advanced UI interactions would go here
+    </script>
+</body>
+</html>
